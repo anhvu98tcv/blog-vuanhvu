@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<li>Tạo 1 EC2 tr&ecirc;n AWS</li>
+<li>Để tạo web server cần chạy httpd hoặc l&agrave; d&ugrave;ng ngnix (chọn 1 trong 2), b&agrave;i n&agrave;y d&ugrave;ng
+  nginx
+  <ul>
+    <li>
+                                <pre><code>sudo amazon-linux-extras install nginx1
+$ sudo systemctl start nginx.service
+$ sudo systemctl stop nginx.service
+$ sudo systemctl restart nginx.service
+
+</code></pre>
+    </li>
+  </ul>
+</li>
+<li>
+  <p>Enable port 80 ở Security group (SG) hoặc enable trong l&uacute;c tạo instance.</p>
+</li>
+<li>
+  <p>C&agrave;i đặt java</p>
+  <pre><code>sudo yum install java-1.8.0-openjdk
+java -version
+
+</code></pre>
+</li>
+<li>
+  <p>Donwload source code v&agrave; build ra file jar</p>
+</li>
+<li>
+  <p>Chạy ứng dụng</p>
+  <pre><code>java -jar blog-0.0.1-SNAPSHOT.jar
+
+</code></pre>
+</li>
+<li>
+  <p>Th&ecirc;m config ở trong nginx:</p>
+  <ul>
+    <li>D&ugrave;ng lệnh: vim blog.conf để tạo file ở folder <code>/etc/nginx/conf.d/blog.conf</code></li>
+    <li><code>server {<br><br>&nbsp; &nbsp; &nbsp; &nbsp; listen 80;<br>&nbsp; &nbsp; &nbsp; &nbsp; listen [::]:80;<br>&nbsp;
+      &nbsp; &nbsp; &nbsp; server_name _;<br>&nbsp; &nbsp; &nbsp; &nbsp; location / {<br>&nbsp; &nbsp; &nbsp; &nbsp;
+      &nbsp; &nbsp; &nbsp;proxy_pass &lt;http://localhost:8080/&gt;;<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;proxy_set_header
+      X-Forwarded-For $proxy_add_x_forwarded_for;<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;proxy_set_header
+      X-Forwarded-Proto $scheme;<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;proxy_set_header X-Forwarded-Port
+      $server_port;<br>&nbsp; &nbsp; &nbsp; &nbsp; }<br>}<br></code></li>
+    <li>Sau đ&oacute; restart lại nginx:</li>
+    <li><code>sudo systemctl restart nginx.service<br><br></code></li>
+  </ul>
+</li>
+<li>
+  <p>Để ứng dụng tự động chạy mỗi khi restart server, th&igrave; cần sửa user data cuả EC2 tr&ecirc;n AWS</p>
+  <ul>
+    <li>
+                                <pre><code>Content-Type: multipart/mixed; boundary=&quot;//&quot;
+ MIME-Version: 1.0
+
+--//
+ Content-Type: text/cloud-config; charset=&quot;us-ascii&quot;
+ MIME-Version: 1.0
+ Content-Transfer-Encoding: 7bit
+ Content-Disposition: attachment; filename=&quot;cloud-config.txt&quot;
+
+#cloud-config
+ cloud_final_modules:
+
+- [scripts-user, always]
+
+--//
+ Content-Type: text/x-shellscript; charset=&quot;us-ascii&quot;
+ MIME-Version: 1.0
+ Content-Transfer-Encoding: 7bit
+ Content-Disposition: attachment; filename=&quot;userdata.txt&quot;
+
+#!/bin/bash
+ sudo systemctl start nginx.service
+ java -jar /home/ec2-user/app/blog/blog-0.0.1-SNAPSHOT.jar
+
+
+</code></pre>
+    </li>
+  </ul>
+</li>
+<li>Tạo 1 database my-sql tr&ecirc;n AWS</li>
+<li>Kết nối đến database
+  <ul>
+    <li>
+                                <pre><code>sudo yum install mysql -y
+
+mysql -u admin -h rds_endpoint -P 3306 -p
+</code></pre>
+    </li>
+  </ul>
+</li>
+
+</body>
+</html>

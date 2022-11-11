@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:insert="fragments/css-header :: header"></div>
+</head>
+<body>
+
+<div id="colorlib-page">
+    <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+    <div th:insert="fragments/left-menu :: left-menu('single')"></div>
+
+    <div id="colorlib-main">
+        <section class="ftco-section ftco-no-pt ftco-no-pb">
+            <div class="container">
+                <div class="row d-flex">
+                    <div class="col-lg-8 px-md-5 py-5">
+                        <div class="row pt-md-4">
+                            <h1 class="mb-3" th:text="${post.title}"></h1>
+                            <div th:utext="${post.content}"></div>
+                            <!--TODO xử lý tag sau -->
+                            <!--                            <div class="tag-widget post-tag-container mb-5 mt-5">-->
+                            <!--                                <div class="tagcloud">-->
+                            <!--                                    <a href="#" class="tag-cloud-link">Life</a>-->
+                            <!--                                    <a href="#" class="tag-cloud-link">Travel</a>-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
+
+                            <div th:if="${post.commentOfAuthor != null}" class="about-author d-flex p-4 bg-light">
+                                <div class="bio mr-5 col-4">
+                                    <img th:src="${post.user.imgUrl}" alt="Image placeholder" class="img-fluid mb-4">
+                                </div>
+                                <div class="desc col-7">
+                                    <h3 th:text="${post.user.lastName}"></h3>
+                                    <td th:text="${post.commentOfAuthor.content}"/>
+                                </div>
+                            </div>
+
+
+                            <div class="pt-5 mt-5">
+                                <h3 th:switch="${totalComment}" class="mb-5 font-weight-bold">
+                                    <span th:case="0">NOT HAVE COMMENT YET</span>
+                                    <span th:case="1" th:text="'1 Comment'"></span>
+                                    <span th:case="*" th:text="${totalComment} +  ' comments'"></span>
+                                </h3>
+
+                                <ul class="comment-list">
+                                    <div th:each="comment : ${listCommentOfBlog}">
+                                        <li class="comment">
+                                            <div class="vcard bio">
+                                                <img th:src="${comment.user.imgUrl}" alt="Image placeholder">
+                                            </div>
+                                            <div class="comment-body">
+                                                <h3 th:text="${comment.user.lastName}"></h3>
+                                                <div class="meta" th:text="${comment.createDatetime}"></div>
+                                                <p th:text="${comment.content}"></p>
+                                                <p><a th:attr="onclick=|showForm('${comment.id}')|" class="reply"
+                                                      style="cursor: pointer">Reply</a></p>
+
+                                                <form action="#" th:action="@{/comment}" method="post"
+                                                      th:object="${comment}"
+                                                      th:id="${comment.id}"
+                                                      class="p-3 p-md-5 bg-light" style="display: none">
+                                                    <div class="form-group">
+                                                        <label for="message">Message</label>
+                                                        <textarea th:field="*{content}" name="" cols="30"
+                                                                  rows="10"
+                                                                  class="form-control"></textarea>
+                                                        <input type="hidden" class="form-control"
+                                                               th:field="*{postId}">
+
+                                                        <input type="hidden" class="form-control" name="parentCommentId"
+                                                               th:value="${comment.id}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="submit" value="Send"
+                                                               class="btn py-3 px-4 btn-primary">
+                                                    </div>
+                                                </form>
+
+                                                <script>
+                                                    function showForm(idForm) {
+                                                        $('#' + idForm).toggle();
+                                                    }
+                                                </script>
+
+                                            </div>
+
+                                            <ul th:if="${comment.listChildComment != null}" class="children">
+                                                <li th:each="childComment : ${comment.listChildComment}"
+                                                    class="comment">
+                                                    <div class="vcard bio">
+                                                        <img th:src="${childComment.user.imgUrl}"
+                                                             alt="Image placeholder">
+                                                    </div>
+                                                    <div class="comment-body">
+                                                        <h3 th:text="${childComment.user.lastName}"></h3>
+                                                        <div class="meta"
+                                                             th:text="${childComment.createDatetime}"></div>
+                                                        <p th:text="${childComment.content}"></p>
+
+                                                    </div>
+
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </div>
+                                </ul>
+
+
+                                <div class="comment-form-wrap pt-5">
+                                    <h3 class="mb-5">Leave a comment</h3>
+                                    <form action="#" th:action="@{/comment}" method="post" th:object="${comment}"
+                                          class="p-3 p-md-5 bg-light">
+                                        <div class="form-group">
+                                            <label for="message">Message</label>
+                                            <textarea th:field="*{content}" name="" id="message" cols="30" rows="10"
+                                                      class="form-control"></textarea>
+                                            <input type="hidden" class="form-control" th:field="*{postId}">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="submit" value="Send" class="btn py-3 px-4 btn-primary">
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div th:insert="fragments/right-panel :: right-panel(${categoryCounts}, ${listPopular})"
+                         class="col-xl-4 sidebar ftco-animate bg-light pt-5">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<
+
+<!-- loader -->
+<div th:insert="fragments/js-footer :: loader"></div>
+
+<!-- js -->
+<div th:insert="fragments/js-footer :: js-footer"></div>
+
+</body>
+</html>

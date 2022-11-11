@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:insert="fragments/css-header :: header"></div>
+</head>
+<body>
+
+<div id="colorlib-page">
+    <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+    <div th:insert="fragments/left-menu :: left-menu('java')"></div>
+
+    <div id="colorlib-main">
+        <section class="ftco-section">
+            <div class="container">
+                <div class="row px-md-4">
+                    <div th:each="post : ${postList}">
+                        <div class="col-md-12">
+                            <div class="blog-entry ftco-animate d-md-flex">
+                                <a th:href="'/post/' + ${post.id}" class="img img-2"
+                                   th:style="'background-image: url(' + ${post.image} + ');'"></a>
+                                <div class="text text-2 pl-md-4">
+                                    <h3 class="mb-2"><a th:href="'/post/' + ${post.id}"
+                                                        th:text="${post.title}"></a>
+                                    </h3>
+                                    <div class="meta-wrap">
+                                        <p class="meta">
+                                            <span><i class="icon-calendar mr-2"></i><span
+                                                    th:text="${post.createDate}"></span></span>
+                                            <span><a th:href="'/' + ${post.category.toLowerCase}"><i
+                                                    class="icon-folder-o mr-2"></i><span
+                                                    th:text="${post.category}"></span></a></span>
+                                            <span><i class="icon-comment2 mr-2"></i><span
+                                                    th:text="${post.listComment.size} + ' Comment'"></span></span>
+                                        </p>
+                                    </div>
+                                    <p class="mb-4" th:text="${post.briefContent}"></p>
+                                    <p><a th:href="'/post/' + ${post.id}" class="btn-custom">Read More </a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+</div>
+
+<!-- loader -->
+<div th:insert="fragments/js-footer :: loader"></div>
+
+<!-- js -->
+<div th:insert="fragments/js-footer :: js-footer"></div>
+
+</body>
+</html>

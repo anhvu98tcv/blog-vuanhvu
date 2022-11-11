@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:insert="fragments/css-header :: header"></div>
+</head>
+<body>
+
+<div id="colorlib-page">
+    <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+    <div th:insert="fragments/left-menu :: left-menu('travel')"></div>
+
+    <div id="colorlib-main">
+        <section class="ftco-section ftco-no-pt ftco-no-pb">
+            <div class="container">
+                <div class="row d-flex">
+                    <div class="col-xl-8 px-md-5 py-5">
+                        <div class="row pt-md-4">
+
+                            <div th:each="post : ${postList}" class="col-md-12">
+                                <div class="blog-entry-2 ftco-animate">
+                                    <a th:href="'/post/' + ${post.id}" class="img"
+                                       th:style="'background-image: url(' + ${post.image} + ');'"></a>
+                                    <div class="text pt-4">
+                                        <h3 class="mb-4"><a th:href="'/post/' + ${post.id}"
+                                                            th:text="${post.title}"></a></h3>
+                                        <p class="mb-4" th:text="${post.briefContent}"></p>
+                                        <div class="author mb-4 d-flex align-items-center">
+                                            <a th:href="'/post/' + ${post.id}" class="img"
+                                               th:style="'background-image: url(' + ${post.user.imgUrl} + ');'"></a>
+                                            <div class="ml-3 info">
+                                                <span>Written by</span>
+                                                <h3><a href="#" th:text="${post.user.lastName}"></a>, <span
+                                                        th:text="${post.createDate}"></span></h3>
+                                            </div>
+                                        </div>
+                                        <div class="meta-wrap d-md-flex align-items-center">
+                                            <div class="half order-md-last text-md-right">
+                                                <p class="meta">
+                                                    <span><i class="icon-heart"></i>3</span>
+                                                    <span><i class="icon-eye"></i>100</span>
+                                                    <span><i class="icon-comment"></i>5</span>
+                                                </p>
+                                            </div>
+                                            <div class="half">
+                                                <p><a th:href="'/post/' + ${post.id}"
+                                                      class="btn btn-primary p-3 px-xl-4 py-xl-3">Continue
+                                                    Reading</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div th:insert="fragments/right-panel :: right-panel(${categoryCounts}, ${listPopular})"
+                         class="col-xl-4 sidebar ftco-animate bg-light pt-5">
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<!-- loader -->
+<div th:insert="fragments/js-footer :: loader"></div>
+
+<!-- js -->
+<div th:insert="fragments/js-footer :: js-footer"></div>
+
+</body>
+</html>

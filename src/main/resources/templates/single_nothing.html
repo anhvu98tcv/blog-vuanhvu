@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:insert="fragments/css-header :: header"></div>
+</head>
+<body>
+
+<div id="colorlib-page">
+    <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+    <div th:insert="fragments/left-menu :: left-menu('single')"></div>
+
+    <div id="colorlib-main">
+        <section class="ftco-section ftco-no-pt ftco-no-pb">
+            <div class="container">
+                <div class="row d-flex">
+                    <div class="col-lg-8 px-md-5 py-5">
+                        <div class="row pt-md-4">
+                            <h1 class="mb-3">Post does not exist</h1>
+
+                            <div class="pt-5 mt-5">
+                                <span>NOT HAVE COMMENT YET</span>
+                                <ul class="comment-list">
+                                </ul>
+
+
+                                <div class="comment-form-wrap pt-5">
+                                    <h3 class="mb-5">Leave a comment</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div th:insert="fragments/right-panel :: right-panel(${categoryCounts}, ${listPopular})"
+                         class="col-xl-4 sidebar ftco-animate bg-light pt-5">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<
+
+<!-- loader -->
+<div th:insert="fragments/js-footer :: loader"></div>
+
+<!-- js -->
+<div th:insert="fragments/js-footer :: js-footer"></div>
+
+</body>
+</html>

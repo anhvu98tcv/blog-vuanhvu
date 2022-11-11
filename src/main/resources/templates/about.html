@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <div th:insert="fragments/css-header :: header"></div>
+</head>
+<body>
+
+<div id="colorlib-page">
+    <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+    <div th:insert="fragments/left-menu :: left-menu('about')"></div>
+
+    <div id="colorlib-main">
+        <section class="ftco-about img ftco-section ftco-no-pt ftco-no-pb" id="about-section">
+            <div class="container-fluid px-0">
+                <div class="row d-flex">
+                    <div class="col-md-6 d-flex">
+                        <div class="img d-flex align-self-stretch align-items-center js-fullheight"
+                             th:style="'background-image: url(' + @{/images/about.jpg} + ');'">
+                        </div>
+                    </div>
+                    <div class="col-md-6 d-flex align-items-center">
+                        <div class="text px-4 pt-5 pt-md-0 px-md-4 pr-md-5 ftco-animate">
+                            <h2 class="mb-4">I'm <span>VuVa</span> a Java developer &amp; Dotard 2 player</h2>
+                            <p>A penny for your thoughts =)).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<!-- loader -->
+<div th:insert="fragments/js-footer :: loader"></div>
+
+<!-- js -->
+<div th:insert="fragments/js-footer :: js-footer"></div>
+
+</body>
+</html>
