@@ -2,10 +2,8 @@ package com.vuanhvu.blog.config;
 
 //import com.vuanhvu.blog.service.UserDetailsServiceImpl;
 
-import com.vuanhvu.blog.auth.MyCustomFbLoginSuccessHandler;
-import com.vuanhvu.blog.entity.User;
-import com.vuanhvu.blog.auth.CustomOAuth2User;
 import com.vuanhvu.blog.auth.CustomOAuth2UserService;
+import com.vuanhvu.blog.auth.MyCustomFbLoginSuccessHandler;
 import com.vuanhvu.blog.auth.MyCustomLoginSuccessHandler;
 import com.vuanhvu.blog.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,16 +14,11 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
 
 @Configuration
 @EnableWebSecurity
