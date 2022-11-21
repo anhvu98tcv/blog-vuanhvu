@@ -25,7 +25,7 @@ public class MyCustomFbLoginSuccessHandler extends SavedRequestAwareAuthenticati
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws ServletException, IOException {
         CustomOAuth2User oauthUser = (CustomOAuth2User) authentication.getPrincipal();
-        User user = userService.processOAuthPostLogin(oauthUser.getEmail());
+        User user = userService.processOAuthPostLogin(oauthUser.getEmail(), oauthUser.getOauth2ClientName());
         HttpSession session = request.getSession();
         session.setAttribute("userId", user.getId().toString());
 

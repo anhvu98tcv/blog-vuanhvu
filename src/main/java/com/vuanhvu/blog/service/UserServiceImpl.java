@@ -25,13 +25,17 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    public User processOAuthPostLogin(String username) {
+    public User processOAuthPostLogin(String username, String provider) {
         User existUser = userRepository.getUserByUsername(username);
 
         if (existUser == null) {
             User newUser = new User();
             newUser.setUsername(username);
-            newUser.setProvider(AuthenticationProvider.FACEBOOK);
+            if ("Google".equals(provider)) {
+                newUser.setProvider(AuthenticationProvider.GOOGLE);
+            } else {
+                newUser.setProvider(AuthenticationProvider.FACEBOOK);
+            }
             newUser.setCreateDatetime(new Date());
             newUser.setRole("user");
             newUser.setStatus(Constants.ACTIVE_STATUS);
