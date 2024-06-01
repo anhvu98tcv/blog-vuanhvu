@@ -26,7 +26,7 @@ public class PostController {
     public String getPostDetail(@PathVariable Integer id, Model model) {
 
         Post post = postService.getPostById(id);
-        if (post == null) {
+        if (post == null || post.getStatus() != 1) {
             model.addAttribute("errorCode", HttpStatus.NOT_FOUND.value());
              return "error";
         }

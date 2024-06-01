@@ -1,6 +1,6 @@
 package com.vuanhvu.blog.controller;
 
-import com.vuanhvu.blog.auth.AuthenticationSystem;
+//import com.vuanhvu.blog.auth.AuthenticationSystem;
 import com.vuanhvu.blog.constant.Constants;
 import com.vuanhvu.blog.entity.Comment;
 import com.vuanhvu.blog.service.CommentServiceImpl;
@@ -22,11 +22,11 @@ public class CommentController {
     @PostMapping("/comment")
     public String submitForm(@ModelAttribute("comment") Comment comment, HttpServletRequest request) {
 
-        if (!AuthenticationSystem.isLogged()) {
-            String referrer = request.getHeader("Referer");
-            request.getSession().setAttribute("url_prior_login", referrer);
-            return "login";
-        }
+//        if (!AuthenticationSystem.isLogged()) {
+//            String referrer = request.getHeader("Referer");
+//            request.getSession().setAttribute("url_prior_login", referrer);
+//            return "login";
+//        }
 
         HttpSession session = request.getSession();
 

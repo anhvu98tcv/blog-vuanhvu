@@ -1,102 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<p>Được dẫn đi chơi ở trung tâm thành phố - Lima central, cảm thấy sao mà đường phố sạch
+    thế, không có rác
+    luôn. Sau đó là lần đầu tiên uống Pisco sour, nói chung
+    là mình không hợp khẩu vị với pisco, nhưng cũng là một món nên thử</p>
 
-<li>Tạo 1 EC2 tr&ecirc;n AWS</li>
-<li>Để tạo web server cần chạy httpd hoặc l&agrave; d&ugrave;ng ngnix (chọn 1 trong 2), b&agrave;i n&agrave;y d&ugrave;ng
-  nginx
-  <ul>
-    <li>
-                                <pre><code>sudo amazon-linux-extras install nginx1
-$ sudo systemctl start nginx.service
-$ sudo systemctl stop nginx.service
-$ sudo systemctl restart nginx.service
-
-</code></pre>
-    </li>
-  </ul>
-</li>
-<li>
-  <p>Enable port 80 ở Security group (SG) hoặc enable trong l&uacute;c tạo instance.</p>
-</li>
-<li>
-  <p>C&agrave;i đặt java</p>
-  <pre><code>sudo yum install java-1.8.0-openjdk
-java -version
-
-</code></pre>
-</li>
-<li>
-  <p>Donwload source code v&agrave; build ra file jar</p>
-</li>
-<li>
-  <p>Chạy ứng dụng</p>
-  <pre><code>java -jar blog-0.0.1-SNAPSHOT.jar
-
-</code></pre>
-</li>
-<li>
-  <p>Th&ecirc;m config ở trong nginx:</p>
-  <ul>
-    <li>D&ugrave;ng lệnh: vim blog.conf để tạo file ở folder <code>/etc/nginx/conf.d/blog.conf</code></li>
-    <li><code>server {<br><br>&nbsp; &nbsp; &nbsp; &nbsp; listen 80;<br>&nbsp; &nbsp; &nbsp; &nbsp; listen [::]:80;<br>&nbsp;
-      &nbsp; &nbsp; &nbsp; server_name _;<br>&nbsp; &nbsp; &nbsp; &nbsp; location / {<br>&nbsp; &nbsp; &nbsp; &nbsp;
-      &nbsp; &nbsp; &nbsp;proxy_pass &lt;http://localhost:8080/&gt;;<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;proxy_set_header
-      X-Forwarded-For $proxy_add_x_forwarded_for;<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;proxy_set_header
-      X-Forwarded-Proto $scheme;<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;proxy_set_header X-Forwarded-Port
-      $server_port;<br>&nbsp; &nbsp; &nbsp; &nbsp; }<br>}<br></code></li>
-    <li>Sau đ&oacute; restart lại nginx:</li>
-    <li><code>sudo systemctl restart nginx.service<br><br></code></li>
-  </ul>
-</li>
-<li>
-  <p>Để ứng dụng tự động chạy mỗi khi restart server, th&igrave; cần sửa user data cuả EC2 tr&ecirc;n AWS</p>
-  <ul>
-    <li>
-                                <pre><code>Content-Type: multipart/mixed; boundary=&quot;//&quot;
- MIME-Version: 1.0
-
---//
- Content-Type: text/cloud-config; charset=&quot;us-ascii&quot;
- MIME-Version: 1.0
- Content-Transfer-Encoding: 7bit
- Content-Disposition: attachment; filename=&quot;cloud-config.txt&quot;
-
-#cloud-config
- cloud_final_modules:
-
-- [scripts-user, always]
-
---//
- Content-Type: text/x-shellscript; charset=&quot;us-ascii&quot;
- MIME-Version: 1.0
- Content-Transfer-Encoding: 7bit
- Content-Disposition: attachment; filename=&quot;userdata.txt&quot;
-
-#!/bin/bash
- sudo systemctl start nginx.service
- java -jar /home/ec2-user/app/blog/blog-0.0.1-SNAPSHOT.jar
+<div class="row">
+    <div class="col-6">
+        <img src="https://d1vego9xkjklqd.cloudfront.net/image/2019/street.jpg" alt=""
+             class="img-fluid"/>
+    </div>
+    <div class="col-6">
+        <img src="https://d1vego9xkjklqd.cloudfront.net/image/2019/pisco_sour.jpg" alt=""
+             class="img-fluid"/>
+    </div>
+</div>
 
 
-</code></pre>
-    </li>
-  </ul>
-</li>
-<li>Tạo 1 database my-sql tr&ecirc;n AWS</li>
-<li>Kết nối đến database
-  <ul>
-    <li>
-                                <pre><code>sudo yum install mysql -y
+<p><br>Phía ngoài nhà thờ ở Lima central</p>
 
-mysql -u admin -h rds_endpoint -P 3306 -p
-</code></pre>
-    </li>
-  </ul>
-</li>
 
-</body>
-</html>
+<p>
+    <img src="https://d1vego9xkjklqd.cloudfront.net/image/2019/temple_lima_centero.jpg"
+         alt=""
+         class="img-fluid"/>
+</p>
+<p>Bên trong là nhà thờ rất hoành tráng</p>
+<p>
+    <img src="https://d1vego9xkjklqd.cloudfront.net/image/2019/temple_inside.jpg" alt=""
+         class="img-fluid"/>
+</p>
+<p>Thành phố Lima về đêm</p>
+<img src="https://d1vego9xkjklqd.cloudfront.net/image/2019/lima_at_night.jpg" alt=""
+     class="img-fluid"/>
+<h2 class="mb-3 mt-5">#Lần đầu rời khỏi Lima</h2>
+<p>Nằm cách thành phố biển Ica 4 km là ốc đảo Huacachina. Theo truyền thuyết cổ, Huacay
+    China, một cô gái xinh đẹp trong vùng, đang
+    tắm tiên dưới hồ nước thì bị một chàng thợ săn trẻ phát hiện. Nàng Huacay bỏ chạy khi
+    thấy bóng người lạ trong tấm gương soi. Gương vỡ tan biến thành đầm phá, vạt áo dài bung
+    bay, rớt lại phía sau hóa những đụn cát khổng lồ bao quanh. Cô gái liền lặn xuống nước
+    sâu để trốn người lạ mặt.</p>
+<p>
+    <img src="https://d1vego9xkjklqd.cloudfront.net/image/2019/huacachina.jpg" alt=""
+         class="img-fluid"/>
+    <img src="https://d1vego9xkjklqd.cloudfront.net/image/2019/trip.jpg" alt=""
+         class="img-fluid"/>
+</p>
+<p><br>Hallowen đi chơi ở công viên mèo, rồi giáng sinh. Lần đầu tiên chơi Secret Santa (mọi
+    người được bốc thăm để tặng những món quà cho nhau vào dịp giáng sinh mà không được để
+    người được tặng biết là ai)</p>
+<div class="row">
+    <div class="col-6">
+        <img src="https://d1vego9xkjklqd.cloudfront.net/image/2019/hallowen.jpg" alt=""
+             class="img-fluid"/>
+    </div>
+    <div class="col-6">
+        <img src="https://d1vego9xkjklqd.cloudfront.net/image/2019/secet-santa.jpg" alt=""
+             class="img-fluid"/>
+    </div>
+</div>
+<p>
+    <br>
+    Sang nhà 1 người bạn trong công ty vào dịp giáng sinh
+</p>
+
+<img src="https://d1vego9xkjklqd.cloudfront.net/image/2019/small-party.jpg" alt=""
+     class="img-fluid"/>
