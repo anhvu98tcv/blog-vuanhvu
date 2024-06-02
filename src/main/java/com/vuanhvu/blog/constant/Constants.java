@@ -6,5 +6,6 @@ public class Constants {
     public static final Integer POPULAR_STATUS = 1;
     public static final String CATEGORY_JAVA = "JAVA";
     public static final String CATEGORY_TRAVEL = "TRAVEL";
+    public static final String CATEGORY_ENGINEER = "ENGINEER";
 
 }

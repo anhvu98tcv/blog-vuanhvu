@@ -34,6 +34,15 @@ public class HomeController {
 
     }
 
+    @GetMapping("/engineer")
+    public String engineer(Model model) {
+
+        List<Post> postHtmlList = postService.getPostByCategory(Constants.CATEGORY_ENGINEER);
+        model.addAttribute("postHtmlList", postHtmlList);
+
+        return "engineer";
+    }
+
     @GetMapping("/java")
     public String java(Model model) {
 
