@@ -25,10 +25,15 @@ services:
            "spring.datasource.username":"root",
            "spring.datasource.password":"123456abc",
            "spring.datasource.driver-class-name":"com.mysql.cj.jdbc.Driver",
-           "spring.jpa.properties.hibernate.dialect":"org.hibernate.dialect.MySQL57InnoDBDialect"
+           "spring.jpa.properties.hibernate.dialect":"org.hibernate.dialect.MySQL57InnoDBDialect",
+           "spring.thymeleaf.prefix":"classpath:/templates/",
+           "spring.thymeleaf.suffix":".html",
+           "spring.thymeleaf.mode":"HTML5",
+           "spring.thymeleaf.encoding":"UTF-8",
+           "spring.thymeleaf.cache":"false"
          }'
     depends_on:
       - db
 
 volumes:
-  db_data: {}
+  db_data: { }
