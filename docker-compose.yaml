@@ -1,0 +1,34 @@
+version: '3.1'
+
+services:
+
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456abc
+      MYSQL_DATABASE: blog
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_APPLICATION_JSON: '{
+           "spring.datasource.url":"jdbc:mysql://db:3306/blog",
+           "spring.datasource.username":"root",
+           "spring.datasource.password":"123456abc",
+           "spring.datasource.driver-class-name":"com.mysql.cj.jdbc.Driver",
+           "spring.jpa.properties.hibernate.dialect":"org.hibernate.dialect.MySQL57InnoDBDialect"
+         }'
+    depends_on:
+      - db
+
+volumes:
+  db_data: {}
